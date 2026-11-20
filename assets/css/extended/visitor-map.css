@@ -7,6 +7,11 @@
 }
 
 .visitor-map-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 5px 14px;
     padding: 14px 18px;
     border: 1px solid var(--about-border);
     border-bottom: 0;
@@ -17,17 +22,31 @@
 .visitor-map-heading h2 { margin: 0; font-size: clamp(1.15rem, 2vw, 1.38rem); }
 .visitor-map-heading p { margin: 2px 0 0; font-size: .91rem; color: var(--about-muted); }
 
-.visitor-map-canvas {
-    display: block;
-    width: 100%;
-    height: auto;
-    aspect-ratio: 2.04;
-    min-height: 215px;
+.visitor-atlas {
+    position: relative;
+    overflow: hidden;
     border: 1px solid var(--about-border);
     border-radius: 0 0 16px 16px;
     background: #edf4f6;
 }
 
+.visitor-atlas svg { display: block; width: 100%; min-height: 195px; height: auto; touch-action: pan-y; }
+.atlas-land { fill: #bfcfd4; stroke: #f6fbfb; stroke-width: .8; vector-effect: non-scaling-stroke; }
+.atlas-land-active { fill: #85afb8; }
+.atlas-dot { fill: #ab343d; stroke: #fff; stroke-width: 2px; paint-order: fill stroke; vector-effect: non-scaling-stroke; cursor: pointer; }
+.atlas-dot:is(:hover,:focus-visible,.atlas-dot-active) { fill: #771f2a; stroke-width: 3px; outline: none; }
+.visitor-controls { position: absolute; top: 9px; right: 9px; display: grid; gap: 5px; }
+.visitor-controls button { width: 38px; height: 38px; background: #fff; color: #254650; border: 1px solid #a7bdc3; border-radius: 8px; font-size: 19px; cursor: pointer; }
+.visitor-controls button:disabled { opacity: .55; cursor: default; }
+.visitor-map #visitor-selection { position: absolute; bottom: 8px; left: 8px; margin: 0; background: #fff; color: #254650; border: 1px solid #a7bdc3; border-radius: 7px; padding: 5px 8px; font-size: .85rem; pointer-events: none; }
+.visitor-map-heading .visitor-total { color: var(--about-accent); font-weight: 650; }
+.visitor-map-canvas { display: block; width: 100%; height: auto; aspect-ratio: 2.04; min-height: 215px; border: 1px solid var(--about-border); border-radius: 0 0 16px 16px; background: #edf4f6; }
+.visitor-map-key { display: inline-flex; align-items: center; gap: 7px; }
+.visitor-map-key span { flex: 0 0 10px; width: 10px; height: 10px; border-radius: 50%; background: #b23438; }
+.visitor-breakdown { display: flex; flex-wrap: wrap; gap: 6px; padding: 0; margin: 12px 0 0; list-style: none; }
+.visitor-breakdown[hidden] { display: none; }
+.visitor-breakdown button { padding: 5px 9px; background: var(--about-card); border: 1px solid var(--about-border); border-radius: 7px; font-size: .88rem; color: var(--about-accent); cursor: pointer; }
+.visitor-breakdown button:hover { background: var(--about-soft); }
 .visitor-map figcaption {
     display: flex;
     flex-wrap: wrap;
@@ -38,11 +57,10 @@
     font-size: .85rem;
 }
 
-.visitor-map-key { display: inline-flex; align-items: center; gap: 7px; }
-.visitor-map-key span { flex: 0 0 10px; width: 10px; height: 10px; border-radius: 50%; background: #b23438; }
 .visitor-map a { text-decoration: underline; text-underline-offset: .15em; }
 
 @media (max-width: 480px) {
     .visitor-map { margin-top: 14px; margin-bottom: 20px; }
     .visitor-map-heading { padding: 10px 12px; }
+    .visitor-controls button { width: 32px; height: 32px; }
 }

@@ -1,0 +1,15 @@
+{{- with site.Params.visitorMap.imageUrl | default "" | strings.TrimSpace }}
+  {{- $mapURL := urls.Parse . }}
+  {{- if not (and (eq $mapURL.Scheme "https") (eq $mapURL.Host "mapmyvisitors.com") (not $mapURL.User) (in (slice "/map.png" "/map_v2.png") $mapURL.Path) ($mapURL.Query.Get "d")) }}
+    {{- errorf "visitorMap.imageUrl must be the HTTPS image embed URL for this site's MapMyVisitors widget" }}
+  {{- end }}
+  <figure class="visitor-map" id="visitor-map" aria-labelledby="visitor-map-title">
+    <header class="visitor-map-heading">
+      <h2 id="visitor-map-title">Visitor map</h2>
+      <p>Approximate locations of recent visitors</p>
+    </header>
+    {{- $embedVersion := (partial "visitor-map-frame.html" (dict "widget" "" "fallback" "") | sha256) | truncate 12 "" -}}
+    <iframe class="visitor-map-canvas" title="Interactive map of recent visitor locations" sandbox="allow-scripts" referrerpolicy="origin" src="{{ "visitor-map-embed/" | relURL }}?v={{ $embedVersion }}"></iframe>
+    <figcaption><span class="visitor-map-key"><span aria-hidden="true"></span> Approximate location · visits from the same place can overlap</span><a href="https://mapmyvisitors.com/b/policy" target="_blank" rel="noopener noreferrer">Location data from MapMyVisitors</a></figcaption>
+  </figure>
+{{- end }}

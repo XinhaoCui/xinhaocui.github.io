@@ -1,15 +1,24 @@
-{{- with site.Params.visitorMap.imageUrl | default "" | strings.TrimSpace }}
-  {{- $mapURL := urls.Parse . }}
-  {{- if not (and (eq $mapURL.Scheme "https") (eq $mapURL.Host "mapmyvisitors.com") (not $mapURL.User) (in (slice "/map.png" "/map_v2.png") $mapURL.Path) ($mapURL.Query.Get "d")) }}
-    {{- errorf "visitorMap.imageUrl must be the HTTPS image embed URL for this site's MapMyVisitors widget" }}
-  {{- end }}
+{{- if fileExists "static/visitor-map/visits.json" }}
   <figure class="visitor-map" id="visitor-map" aria-labelledby="visitor-map-title">
     <header class="visitor-map-heading">
-      <h2 id="visitor-map-title">Visitor map</h2>
-      <p>Approximate locations of recent visitors</p>
+      <div><h2 id="visitor-map-title">Visitor map</h2><p>Visits by country or region · Cloudflare Web Analytics</p></div>
+      <p class="visitor-total" id="visitor-total" role="status">Loading visit totals…</p>
     </header>
-    {{- $embedVersion := (partial "visitor-map-frame.html" (dict "widget" "" "fallback" "") | sha256) | truncate 12 "" -}}
-    <iframe class="visitor-map-canvas" title="Interactive map of recent visitor locations" sandbox="allow-scripts" referrerpolicy="origin" src="{{ "visitor-map-embed/" | relURL }}?v={{ $embedVersion }}"></iframe>
-    <figcaption><span class="visitor-map-key"><span aria-hidden="true"></span> Approximate location · visits from the same place can overlap</span><a href="https://mapmyvisitors.com/b/policy" target="_blank" rel="noopener noreferrer">Location data from MapMyVisitors</a></figcaption>
+    <div class="visitor-atlas" id="visitor-atlas" data-world="{{ "visitor-map/world.json" | relURL }}" data-visits="{{ "visitor-map/visits.json" | relURL }}">
+      <svg viewBox="0 0 1000 470" role="group" aria-label="World map showing country-level visit totals"></svg>
+      <div class="visitor-controls" aria-label="Map zoom">
+        <button type="button" data-zoom="in" aria-label="Zoom in">+</button>
+        <button type="button" data-zoom="out" aria-label="Zoom out">−</button>
+        <button type="button" data-zoom="reset" aria-label="Reset map">↺</button>
+      </div>
+      <p id="visitor-selection" role="status" hidden></p>
+    </div>
+    <figcaption><span id="visitor-period">Country-level totals only; markers do not indicate cities or individual visitors.</span><a href="https://developers.cloudflare.com/web-analytics/data-metrics/dimensions/" target="_blank" rel="noopener noreferrer">About the data</a></figcaption>
+    <ul class="visitor-breakdown" id="visitor-breakdown" aria-label="Visits by country or region" hidden></ul>
+    <noscript><p>Enable JavaScript to view the interactive visitor map.</p></noscript>
   </figure>
+  {{- $script := resources.Get "js/visitor-atlas.js" | minify | fingerprint -}}
+  <script src="{{ $script.RelPermalink }}" integrity="{{ $script.Data.Integrity }}" defer></script>
+{{- else }}
+  {{- partial "visitor-map-legacy.html" . }}
 {{- end }}
