@@ -3,15 +3,19 @@
   {{- if not (and (eq $mapURL.Scheme "https") (eq $mapURL.Host "mapmyvisitors.com") (not $mapURL.User) (in (slice "/map.png" "/map_v2.png") $mapURL.Path) ($mapURL.Query.Get "d")) }}
     {{- errorf "visitorMap.imageUrl must be the HTTPS image embed URL for this site's MapMyVisitors widget" }}
   {{- end }}
+  {{- $baseMap := printf "https://%s%s?%s" $mapURL.Host $mapURL.Path (querify "d" ($mapURL.Query.Get "d") "cl" ($mapURL.Query.Get "cl" | default "ffffff")) }}
+  {{- $standardMap := printf "%s&w=720" $baseMap }}
+  {{- $highDensityMap := printf "%s&w=1440" $baseMap }}
   <section class="visitor-map" aria-label="Visitor map">
     <details class="visitor-map-panel">
       <summary aria-describedby="visitor-map-privacy">
-        <svg aria-hidden="true" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+        <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
           <circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18"/>
         </svg>
-        Visitor map
+        <span>Visitor map</span>
+        <span class="visitor-map-toggle" aria-hidden="true"></span>
       </summary>
-      <img data-map-src="{{ . }}" alt="World map of approximate visitor locations" decoding="async" referrerpolicy="origin" hidden>
+      <img data-map-src="{{ $standardMap }}" data-map-hi-dpi="{{ $highDensityMap }}" alt="World map of approximate visitor locations" decoding="async" referrerpolicy="origin" hidden>
       <p class="visitor-map-status" role="status" hidden></p>
       <noscript><p class="visitor-map-status">JavaScript is required to load the visitor map.</p></noscript>
     </details>
@@ -33,7 +37,9 @@
         if (!panel.open || !image.dataset.mapSrc) return;
         status.textContent = 'Loading visitor map…';
         status.hidden = false;
-        image.src = image.dataset.mapSrc;
+        const displayWidth = panel.getBoundingClientRect().width;
+        const pixelRatio = window.devicePixelRatio || 1;
+        image.src = displayWidth * pixelRatio > 720 ? image.dataset.mapHiDpi : image.dataset.mapSrc;
         delete image.dataset.mapSrc;
       };
       panel.addEventListener('toggle', loadMap);
