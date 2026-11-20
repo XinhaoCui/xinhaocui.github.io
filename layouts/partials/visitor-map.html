@@ -3,19 +3,12 @@
   {{- if not (and (eq $mapURL.Scheme "https") (eq $mapURL.Host "mapmyvisitors.com") (not $mapURL.User) (in (slice "/map.png" "/map_v2.png") $mapURL.Path) ($mapURL.Query.Get "d")) }}
     {{- errorf "visitorMap.imageUrl must be the HTTPS image embed URL for this site's MapMyVisitors widget" }}
   {{- end }}
-  {{- $baseMap := printf "https://%s%s?%s" $mapURL.Host $mapURL.Path (querify "d" ($mapURL.Query.Get "d") "cl" ($mapURL.Query.Get "cl" | default "ffffff")) }}
-  {{- $standardMap := printf "%s&w=720" $baseMap }}
-  {{- $highDensityMap := printf "%s&w=1440" $baseMap }}
-  <figure class="visitor-map" aria-labelledby="visitor-map-title">
-    <div class="visitor-map-panel">
-      <h2 id="visitor-map-title">
-        <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
-          <circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18"/>
-        </svg>
-        Visitor map
-      </h2>
-      <img src="{{ $standardMap }}" srcset="{{ $standardMap }} 720w, {{ $highDensityMap }} 1440w" sizes="(max-width: 760px) calc(100vw - 32px), 720px" width="720" height="376" alt="World map of approximate visitor locations" decoding="async" referrerpolicy="origin">
-    </div>
-    <figcaption>Approximate visitor locations from <a href="https://mapmyvisitors.com/b/policy" target="_blank" rel="noopener noreferrer">MapMyVisitors</a>, which uses IP addresses to estimate regions.</figcaption>
+  <figure class="visitor-map" id="visitor-map" aria-labelledby="visitor-map-title">
+    <header class="visitor-map-heading">
+      <h2 id="visitor-map-title">Visitor map</h2>
+      <p>Approximate locations of recent visitors</p>
+    </header>
+    <iframe class="visitor-map-canvas" title="Interactive map of recent visitor locations" sandbox="allow-scripts" referrerpolicy="origin" src="{{ "visitor-map-embed/" | relURL }}"></iframe>
+    <figcaption><span class="visitor-map-key"><span aria-hidden="true"></span> Approximate visit location</span><a href="https://mapmyvisitors.com/b/policy" target="_blank" rel="noopener noreferrer">Location data from MapMyVisitors</a></figcaption>
   </figure>
 {{- end }}

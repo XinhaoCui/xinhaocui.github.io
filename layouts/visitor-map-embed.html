@@ -1,0 +1,9 @@
+{{- with site.Params.visitorMap.imageUrl | default "" | strings.TrimSpace }}
+  {{- $mapURL := urls.Parse . }}
+  {{- if not (and (eq $mapURL.Scheme "https") (eq $mapURL.Host "mapmyvisitors.com") (not $mapURL.User) (in (slice "/map.png" "/map_v2.png") $mapURL.Path) ($mapURL.Query.Get "d")) }}
+    {{- errorf "visitorMap.imageUrl must point to this site's MapMyVisitors widget" }}
+  {{- end }}
+  {{- $fallback := printf "https://mapmyvisitors.com%s?%s" $mapURL.Path (querify "d" ($mapURL.Query.Get "d") "cl" "bcced3" "co" "edf4f6" "ct" "254650" "w" "1440") }}
+  {{- $widget := printf "https://mapmyvisitors.com/map.js?%s" (querify "d" ($mapURL.Query.Get "d") "w" "a" "co" "edf4f6" "cl" "bcced3" "ct" "254650" "t" "n") }}
+  {{- partial "visitor-map-frame.html" (dict "widget" $widget "fallback" $fallback) }}
+{{- end }}

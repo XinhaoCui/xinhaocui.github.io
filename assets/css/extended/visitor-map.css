@@ -1,36 +1,48 @@
 .visitor-map {
-    width: min(100%, 45rem);
-    margin: 8px auto 20px;
+    width: min(1160px, calc(100vw - clamp(28px, 5vw, 80px)));
+    margin: 20px 0 26px 50%;
+    transform: translateX(-50%);
+    color: var(--about-accent);
+    scroll-margin-top: 66px;
+}
+
+.visitor-map-heading {
+    padding: 14px 18px;
+    border: 1px solid var(--about-border);
+    border-bottom: 0;
+    border-radius: 16px 16px 0 0;
+    background: var(--about-card);
+}
+
+.visitor-map-heading h2 { margin: 0; font-size: clamp(1.15rem, 2vw, 1.38rem); }
+.visitor-map-heading p { margin: 2px 0 0; font-size: .91rem; color: var(--about-muted); }
+
+.visitor-map-canvas {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 2.04;
+    min-height: 215px;
+    border: 1px solid var(--about-border);
+    border-radius: 0 0 16px 16px;
+    background: #edf4f6;
+}
+
+.visitor-map figcaption {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 5px 15px;
+    margin: 7px 4px 0;
     color: var(--about-muted);
     font-size: .85rem;
 }
 
-.visitor-map-panel {
-    border: 1px solid var(--about-border);
-    border-radius: 12px;
-    overflow: hidden;
-    background: var(--about-card);
-}
-
-.visitor-map h2 {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    min-height: 48px;
-    margin: 0;
-    padding: 0 14px;
-    color: var(--about-accent);
-    font-size: 1rem;
-    font-weight: 600;
-}
-
-.visitor-map img {
-    display: block;
-    width: 100%;
-    height: auto;
-    margin: 0;
-    border-top: 1px solid var(--about-border);
-}
-
-.visitor-map figcaption { margin: 6px 2px 0; line-height: 1.5; }
+.visitor-map-key { display: inline-flex; align-items: center; gap: 7px; }
+.visitor-map-key span { width: 9px; height: 9px; border-radius: 50%; background: #176c83; }
 .visitor-map a { text-decoration: underline; text-underline-offset: .15em; }
+
+@media (max-width: 480px) {
+    .visitor-map { margin-top: 14px; margin-bottom: 20px; }
+    .visitor-map-heading { padding: 10px 12px; }
+}
