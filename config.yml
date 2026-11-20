@@ -39,6 +39,10 @@ menu:
       weight: 5
 
 params:
+  footer:
+    # Update when the site's public content changes, not on rebuilds.
+    updatedDate: "2026-11-21"
+
   about:
     avatarBaseName: avatar
     avatarAlt: "Xinhao Cui"

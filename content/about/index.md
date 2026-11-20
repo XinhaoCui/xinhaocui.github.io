@@ -20,6 +20,14 @@ description: "Xinhao Cui is a Ph.D. candidate at Beihang University who develops
         <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         Download CV
       </a>
+      <a class="about-btn" href="https://orcid.org/0009-0006-3297-213X" target="_blank" rel="me noopener">
+        <svg aria-hidden="true" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M8.5 10.5v6m0-9v.1m4 2.9h1.5a3 3 0 0 1 0 6h-1.5z"/></svg>
+        ORCID
+      </a>
+      <a class="about-btn" href="https://scholar.google.com/citations?user=oTPaeVoAAAAJ&amp;hl=en" target="_blank" rel="noopener">
+        <svg aria-hidden="true" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9l10-5 10 5-10 5-10-5zm4 2v6c3 3 9 3 12 0v-6m4-2v7"/></svg>
+        Google Scholar
+      </a>
       <span class="about-email-wrap">
         <a class="about-btn" href="mailto:cuixinhao@buaa.edu.cn">
           <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>

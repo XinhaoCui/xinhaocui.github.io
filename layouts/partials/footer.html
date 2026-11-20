@@ -13,6 +13,11 @@
     {{- if $showCopyright }}{{ print " · " }}{{ end }}
     {{ . | markdownify }}
     {{- end }}
+    {{- with site.Params.footer.updatedDate }}
+    {{- $date := time.AsTime . }}
+    {{- if or $showCopyright site.Params.footer.text }}{{ print " · " }}{{ end }}
+    <span>Last updated <time datetime="{{ $date.Format "2006-01-02" }}">{{ $date.Format "January 2, 2006" }}</time></span>
+    {{- end }}
 </footer>
 {{- end }}
 
