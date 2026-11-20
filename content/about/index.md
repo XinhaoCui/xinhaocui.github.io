@@ -31,8 +31,6 @@ description: "Xinhao Cui is a Ph.D. candidate at Beihang University who develops
   </div>
 </section>
 
-{{< visitor-map >}}
-
 <nav class="about-jump-links" aria-label="On this page">
   <a href="#academic-positions">Academic positions</a>
   <a href="#research-interests">Research interests</a>
