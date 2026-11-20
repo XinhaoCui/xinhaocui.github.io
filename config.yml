@@ -93,6 +93,10 @@ params:
   pageViews:
     enabled: false
 
+  visitorMap:
+    # Public image URL from the site's own MapMyVisitors embed.
+    imageUrl: "https://mapmyvisitors.com/map.png?d=R6sz8780evocx9Ratl6dwL3yajSsWX5-YwKmv6ptk6o&cl=ffffff"
+
 markup:
   goldmark:
     renderer:
