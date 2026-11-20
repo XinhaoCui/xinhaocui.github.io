@@ -1,0 +1,113 @@
+baseURL: "http://localhost:1313/"
+title: Xinhao Cui
+theme: PaperMod
+
+cleanDestinationDir: true
+buildFuture: true
+enableInlineShortcodes: true
+enableRobotsTXT: true
+
+module:
+  mounts:
+    - source: assets
+      target: assets
+    - source: static/avatar.jpg
+      target: assets/portraits/avatar.jpg
+
+pagination:
+  pagerSize: 20
+
+taxonomies:
+  tag: tags
+
+menu:
+  main:
+    - name: About
+      url: about/
+      weight: 1
+    - name: Publications
+      url: publications/
+      weight: 2
+    - name: Ongoing Work
+      url: ongoing-papers/
+      weight: 3
+    - name: Conferences
+      url: conferences/
+      weight: 4
+    - name: Awards
+      url: awards/
+      weight: 5
+
+params:
+  about:
+    avatarBaseName: avatar
+    avatarAlt: "Xinhao Cui"
+
+  cvPdfVersion: "20260930"
+  description: "Academic homepage of Xinhao Cui, a Ph.D. candidate at Beihang University. His research develops optimization models and algorithms for resilient decision-making under uncertainty."
+  author: Xinhao Cui
+  DateFormat: "January 2006"
+  defaultTheme: light
+  hideFooter: false
+  disableThemeToggle: true
+  ShowShareButtons: false
+  ShowReadingTime: false
+  disableSpecial1stPost: true
+  disableAnchoredHeadings: true
+  ShowPostNavLinks: false
+  ShowBreadCrumbs: false
+  ShowCodeCopyButtons: true
+  ShowAllPagesInArchive: false
+  MainSections: ["publications"]
+  ShowToc: false
+  disableScrollToTop: true
+  TocOpen: true
+  ShowWordCount: false
+  UseHugoToc: true
+  comments: false
+  math: false
+
+  profileMode:
+    enabled: false
+
+  socialIcons:
+    - name: CV
+      url: cv.pdf
+    - name: Email
+      url: mailto:cuixinhao@buaa.edu.cn
+
+  assets:
+    disableScrollBarStyle: true
+    useLabelIconAsFavicon: true
+
+  cover:
+    hiddenInList: false
+    hiddenInSingle: true
+
+  label:
+    text: "Xinhao Cui"
+    icon: brand-cat.jpg
+    iconCrop: "640x640 TopLeft"
+    iconHeight: 26
+
+  pageViews:
+    enabled: false
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+    parser:
+      wrapStandAloneImageWithinParagraph: false
+      attribute:
+        block: true
+        title: true
+    extensions:
+      typographer: false
+  highlight:
+    guessSyntax: true
+    style: autumn
+  tableOfContents:
+    endLevel: 2
+    ordered: false
+    startLevel: 2
