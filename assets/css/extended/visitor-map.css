@@ -39,7 +39,7 @@
 }
 
 .visitor-map-key { display: inline-flex; align-items: center; gap: 7px; }
-.visitor-map-key span { width: 9px; height: 9px; border-radius: 50%; background: #176c83; }
+.visitor-map-key span { flex: 0 0 10px; width: 10px; height: 10px; border-radius: 50%; background: #b23438; }
 .visitor-map a { text-decoration: underline; text-underline-offset: .15em; }
 
 @media (max-width: 480px) {
