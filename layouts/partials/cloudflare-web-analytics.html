@@ -1,0 +1,10 @@
+{{- $siteURL := urls.Parse site.BaseURL -}}
+{{- if and hugo.IsProduction (not hugo.IsServer) (eq $siteURL.Scheme "https") (eq $siteURL.Host "xinhaocui.github.io") -}}
+  {{- with site.Params.webAnalytics.cloudflareSiteToken | default "" | strings.TrimSpace -}}
+    {{- if not (findRE `^[0-9A-Fa-f]{32}$` .) -}}
+      {{- errorf "webAnalytics.cloudflareSiteToken must be the 32-character site token from the Cloudflare Web Analytics browser snippet" -}}
+    {{- else -}}
+      <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{{ dict "token" . "spa" false | jsonify }}'></script>
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
