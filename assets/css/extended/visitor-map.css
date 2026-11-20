@@ -8,44 +8,29 @@
 .visitor-map-panel {
     border: 1px solid var(--about-border);
     border-radius: 12px;
+    overflow: hidden;
     background: var(--about-card);
 }
 
-.visitor-map summary {
+.visitor-map h2 {
     display: flex;
     align-items: center;
     gap: 10px;
-    min-height: 50px;
+    min-height: 48px;
+    margin: 0;
     padding: 0 14px;
-    border-radius: 11px;
     color: var(--about-accent);
-    cursor: pointer;
     font-size: 1rem;
     font-weight: 600;
-    list-style: none;
 }
 
-.visitor-map summary::-webkit-details-marker { display: none; }
-.visitor-map-toggle { margin-inline-start: auto; font-size: 1.2rem; font-weight: 400; }
-.visitor-map-toggle::before { content: '+'; }
-.visitor-map details[open] .visitor-map-toggle::before { content: '−'; }
-.visitor-map summary:hover { background: var(--about-soft); }
-.visitor-map summary:focus-visible { outline: 2px solid var(--about-accent); outline-offset: 2px; }
-
-.visitor-map img:not([hidden]) {
+.visitor-map img {
     display: block;
     width: 100%;
     height: auto;
     margin: 0;
     border-top: 1px solid var(--about-border);
-    border-radius: 0 0 11px 11px;
 }
 
-.visitor-map p {
-    margin: 6px 2px 0;
-    line-height: 1.5;
-}
-
-.visitor-map p.visitor-map-status { margin: 0; padding: 0 14px 12px; }
-
+.visitor-map figcaption { margin: 6px 2px 0; line-height: 1.5; }
 .visitor-map a { text-decoration: underline; text-underline-offset: .15em; }

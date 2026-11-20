@@ -6,44 +6,16 @@
   {{- $baseMap := printf "https://%s%s?%s" $mapURL.Host $mapURL.Path (querify "d" ($mapURL.Query.Get "d") "cl" ($mapURL.Query.Get "cl" | default "ffffff")) }}
   {{- $standardMap := printf "%s&w=720" $baseMap }}
   {{- $highDensityMap := printf "%s&w=1440" $baseMap }}
-  <section class="visitor-map" aria-label="Visitor map">
-    <details class="visitor-map-panel">
-      <summary aria-describedby="visitor-map-privacy">
+  <figure class="visitor-map" aria-labelledby="visitor-map-title">
+    <div class="visitor-map-panel">
+      <h2 id="visitor-map-title">
         <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
           <circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18"/>
         </svg>
-        <span>Visitor map</span>
-        <span class="visitor-map-toggle" aria-hidden="true"></span>
-      </summary>
-      <img data-map-src="{{ $standardMap }}" data-map-hi-dpi="{{ $highDensityMap }}" alt="World map of approximate visitor locations" decoding="async" referrerpolicy="origin" hidden>
-      <p class="visitor-map-status" role="status" hidden></p>
-      <noscript><p class="visitor-map-status">JavaScript is required to load the visitor map.</p></noscript>
-    </details>
-    <p id="visitor-map-privacy">Opening the map shares your IP address with <a href="https://mapmyvisitors.com/b/policy" target="_blank" rel="noopener noreferrer">MapMyVisitors</a> to record the visit and estimate your location.</p>
-  </section>
-  <script>
-    (() => {
-      const panel = document.querySelector('.visitor-map-panel');
-      const image = panel.querySelector('img');
-      const status = panel.querySelector('[role="status"]');
-      image.addEventListener('load', () => {
-        image.hidden = false;
-        status.hidden = true;
-      });
-      image.addEventListener('error', () => {
-        status.textContent = 'The visitor map is unavailable right now.';
-      });
-      const loadMap = () => {
-        if (!panel.open || !image.dataset.mapSrc) return;
-        status.textContent = 'Loading visitor map…';
-        status.hidden = false;
-        const displayWidth = panel.getBoundingClientRect().width;
-        const pixelRatio = window.devicePixelRatio || 1;
-        image.src = displayWidth * pixelRatio > 720 ? image.dataset.mapHiDpi : image.dataset.mapSrc;
-        delete image.dataset.mapSrc;
-      };
-      panel.addEventListener('toggle', loadMap);
-      loadMap();
-    })();
-  </script>
+        Visitor map
+      </h2>
+      <img src="{{ $standardMap }}" srcset="{{ $standardMap }} 720w, {{ $highDensityMap }} 1440w" sizes="(max-width: 760px) calc(100vw - 32px), 720px" width="720" height="376" alt="World map of approximate visitor locations" decoding="async" referrerpolicy="origin">
+    </div>
+    <figcaption>Approximate visitor locations from <a href="https://mapmyvisitors.com/b/policy" target="_blank" rel="noopener noreferrer">MapMyVisitors</a>, which uses IP addresses to estimate regions.</figcaption>
+  </figure>
 {{- end }}
